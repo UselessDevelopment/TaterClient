@@ -10,6 +10,9 @@
 #define MACRO_CONFIG_STR(Name, ScriptName, Len, Def, Save, Desc) ;
 #endif
 
+//custom
+MACRO_CONFIG_INT(ClDummyHookFly, us_dummy_fly, 0, 0, 1, CFGFLAG_SAVE | CFGFLAG_CLIENT, "Redbull gives wings!")
+
 // client
 MACRO_CONFIG_INT(ClPredict, cl_predict, 1, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Predict client movements")
 MACRO_CONFIG_INT(ClPredictDummy, cl_predict_dummy, 1, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Predict dummy movements")
