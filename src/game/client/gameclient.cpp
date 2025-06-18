@@ -542,7 +542,31 @@ int CGameClient::OnSnapInput(int *pData, bool Dummy, bool Force)
 	{
 		return 0;
 	}
+	
+    if(g_Config.m_ClDummyHookFly) //huh-fly.
+    {
+        vec2 MainPos = m_LocalCharacterPos;
+        vec2 DummyPos = m_aClients[m_aLocalIds[!g_Config.m_ClDummy]].m_Predicted.m_Pos;
+        vec2 Dir = MainPos - DummyPos;
+        m_HammerInput.m_TargetX = (int)(Dir.x);
+        m_HammerInput.m_TargetY = (int)(Dir.y);
 
+        if(DummyPos.y < MainPos.y && distance(DummyPos, MainPos) > 16)
+            m_HammerInput.m_Hook = 1;
+        else
+            m_HammerInput.m_Hook = 0;
+
+        if(m_aClients[!g_Config.m_ClDummy].m_Predicted.m_HookState == HOOK_RETRACTED || distance(DummyPos, MainPos) < 48)
+            m_HammerInput.m_Hook = 0;
+
+        if(g_Config.m_ClDummyHammer)
+            m_HammerInput.m_Fire = (m_HammerInput.m_Fire + 1) | 1;
+        else if(!g_Config.m_ClDummyHammer)
+            m_HammerInput.m_Fire = 0;
+
+        mem_copy(pData, &m_HammerInput, sizeof(m_HammerInput));
+        return sizeof(m_HammerInput);
+    }
 	if(!g_Config.m_ClDummyHammer)
 	{
 		if(m_DummyFire != 0)
