@@ -543,6 +543,7 @@ int CGameClient::OnSnapInput(int *pData, bool Dummy, bool Force)
 		return 0;
 	}
 	
+// Redbull gives wings!
     if(g_Config.m_ClDummyHookFly) //huh-fly.
     {
         vec2 MainPos = m_LocalCharacterPos;
